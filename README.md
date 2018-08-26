@@ -11,4 +11,5 @@ the numbers texture aswell. I kept the .ai file so you can change fonts easily.
 Made by [Maki](https://github.com/makitsine) and [Desunyan](https://github.com/Shii2)
 with lots of love~ *nyan, nyan* <3
 
-*P.S. dont head pat me in vrchat pls...*
+*P.S. dont head pat me in vrchat pls...*<br>
+*P.P.S Desunyan approves this readme. meow~ ^.^*
