@@ -2,6 +2,8 @@
 
 > 🕒 Show the current time where you live on an analogue clock in VRChat.
 
+## [Download .UnityPackage here!](https://github.com/makitsune/realtime-clock/releases)
+
 It uses https://maki.cat for finding the time with your IP address, therefore it can sometimes return an inaccurate location, which can cause the time to be offsetted by an hour or two. And fyi, I don't track anything from my HTTP GET requests... That would be mean...
 
 You can change the background and foreground colours in the material and change the numbers texture aswell. I kept the .ai file so you can change fonts easily. The mesh uses vertex colors to index each time handle so keep that in mind if you want to edit it!
