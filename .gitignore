@@ -1,0 +1,2 @@
+*.meta
+!unity/*.meta
