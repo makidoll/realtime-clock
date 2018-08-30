@@ -1,2 +1,4 @@
 *.meta
 !unity/*.meta
+*package-lock.json
+*node_modules/

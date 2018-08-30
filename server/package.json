@@ -1,0 +1,11 @@
+{
+	"name": "realtime-clock",
+	"description": "Show the current time where you live on an analogue clock in VRChat.",
+	"homepage": "https://github.com/makitsune/realtime-clock#readme",
+	"author": "Maki and Desunyan",
+	"dependencies": {
+		"express": "^4.16.3",
+		"jimp": "^0.3.11",
+		"request": "^2.88.0"
+	}
+}
