@@ -78,19 +78,24 @@ const TimeInImage = function (app,path) {
 				return;
 			}
 
-			body = JSON.parse(body).data;
+			try {			
+				body = JSON.parse(body).data;
 
-			let time = body.datetime.time
-				.split(":").map(x=>parseInt(x));
+				let time = body.datetime.time
+					.split(":").map(x=>parseInt(x));
 
-			makeTimeImageBuffer(time).then(buffer=>{
-				res.end(buffer);
-			});
+				makeTimeImageBuffer(time).then(buffer=>{
+					res.end(buffer);
+				});
+			} catch(err) {
+				console.log(err);
+				res.send();
+			}
 		});
 	});
 
 	app.get(path, (req,res)=>{
-		res.redirect("/time-in-image/"+generateCharacters(8)+".png");
+		res.redirect(path+"/"+generateCharacters(8)+".png");
 	});
 }
 
