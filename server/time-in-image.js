@@ -52,12 +52,18 @@ const makeTimeImageBuffer = (time)=>{ // 24,60,60
 
 const generateCharacters = (amount)=>{
 	let out = "";
-	let choice = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_-".split("");
+	let choice = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".split("");
 	for (var i=0; i<amount; i++) {
 		out+=choice[Math.floor(Math.random()*choice.length)];
 	}
 	return out;
 }
+
+var cachedTzs = {};
+setInterval(()=>{
+	cachedTzs = {};
+}, 1000*60*60*24*7);
+// every 7 days clear
 
 const TimeInImage = function (app,path) {
 	this.onRequest = ()=>{};
@@ -68,6 +74,16 @@ const TimeInImage = function (app,path) {
 		res.header({"Content-Type": "image/png"});
 
 		let ip = (req.ip.split(":")[3]);
+		if (cachedTzs[ip]) {
+			let time = moment().tz(cachedTzs[ip]).format("HH:mm:ss")
+				.split(":").map(x=>parseInt(x));
+
+			makeTimeImageBuffer(time).then(buffer=>{
+				res.end(buffer);
+			});
+
+			return;
+		}
 
 		request.post({
 			url: "https://www.iplocation.net",
@@ -88,6 +104,8 @@ const TimeInImage = function (app,path) {
 					body[3].split("</")[0],
 					body[4].split("</")[0]
 				);
+
+				cachedTzs[ip] = tz;
 
 				let time = moment().tz(tz).format("HH:mm:ss")
 					.split(":").map(x=>parseInt(x));
