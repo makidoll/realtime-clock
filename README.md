@@ -12,7 +12,7 @@ You can change the background and foreground colours in the material and change 
 
 It fetches time from https://maki.cat/time-in-image
 
-This is done by looking up your time from your IP using https://timezoneapi.io and then converts hours (h), minutes (m), seconds (s): 24,60,60 into 255,255,255.
+This is done by looking up your time from your IP using https://www.iplocation.net, `tz-lookup` and `moment-timezone`, then converts hours (h), minutes (m), seconds (s): 24,60,60 into 255,255,255.
 
 It then generates an 8x8 .png file where it has 4 sections of colour assembled like this: (each section shows r,g,b values)
 
