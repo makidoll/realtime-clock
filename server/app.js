@@ -1,7 +1,7 @@
 // --------------------------------
 const settings = {
 	port: 8080,
-	path: "/lol"
+	path: "/testing"
 };
 // --------------------------------
 
@@ -17,5 +17,5 @@ timeInImage.onRequest = req=>{
 }
 
 app.listen(settings.port, ()=>{
-	console.log("Web server open at:\nhttp://127.0.0.1:"+settings.port+settings.path);
+	console.log("Web server open at *:"+settings.port+settings.path);
 });

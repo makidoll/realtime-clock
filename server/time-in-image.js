@@ -1,6 +1,8 @@
 const fs = require("fs");
 const request = require("request");
 const Jimp = require("jimp");
+const tzlookup = require("tz-lookup");
+const moment = require("moment-timezone");
 
 const make8x8ImageBufferWith4Colors = c=>{
 	return new Promise((resolve,reject)=>{
@@ -66,22 +68,28 @@ const TimeInImage = function (app,path) {
 		res.header({"Content-Type": "image/png"});
 
 		let ip = (req.ip.split(":")[3]);
-		let url = "https://timezoneapi.io/api/ip/"
-		if (ip.substring(0,10)!="192.168.1.") {
-			url+="?ip="+ip;
-		}
 
-		request(url, (err,_,body)=>{
+		request.post({
+			url: "https://www.iplocation.net",
+			form: { query: ip },
+			headers: { referer: "https://www.iplocation.net" }
+		}, (err,_,body)=>{
 			if (err) {
 				console.log(err);
-				res.send();
-				return;
+				return res.send();
 			}
 
-			try {			
-				body = JSON.parse(body).data;
+			try {
+				body = body
+					.split("ipinfo.io</a>")[1].split("</table>")[0]
+					.split("<tr>")[4].split("<td>");
 
-				let time = body.datetime.time
+				let tz = tzlookup(
+					body[3].split("</")[0],
+					body[4].split("</")[0]
+				);
+
+				let time = moment().tz(tz).format("HH:mm:ss")
 					.split(":").map(x=>parseInt(x));
 
 				makeTimeImageBuffer(time).then(buffer=>{
